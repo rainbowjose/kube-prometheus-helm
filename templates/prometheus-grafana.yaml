@@ -1,0 +1,474 @@
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/workload-total.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-workload-total
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/statefulset.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-statefulset
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/scheduler.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-scheduler
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/proxy.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-proxy
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/prometheus.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-prometheus
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/prometheus-remote-write.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-prometheus-remote-write
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/pods.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-pods
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/pod-total.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-pod-total
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/persistentvolumesusage.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-persistentvolumesusage
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/nodes.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-nodes
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/node-rsrc-use.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-node-rsrc-use
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/node-cluster-rsrc-use.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-node-cluster-rsrc-use
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/namespace-by-workload.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-namespace-by-workload
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/namespace-by-pod.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-namespace-by-pod
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/kubelet.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-kubelet
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/k8s-resources-workloads-namespace.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-k8s-resources-workloads-namespace
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/k8s-resources-workload.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-k8s-resources-workload
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/k8s-resources-pod.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-k8s-resources-pod
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/k8s-resources-node.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-k8s-resources-node
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/k8s-resources-namespace.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-k8s-resources-namespace
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/k8s-resources-cluster.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-k8s-resources-cluster
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/controller-manager.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-controller-manager
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/apiserver.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-apiserver
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+data:
+  {{ (.Files.Glob "configs/cluster-total.json").AsConfig | indent 2 }}
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-cluster-total
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: {{ .Release.Namespace }}
+data:
+  datasources.yaml: |
+    {
+    "apiVersion": 1,
+    "datasources": [
+        {
+            "access": "proxy",
+            "editable": false,
+            "name": "prometheus",
+            "orgId": 1,
+            "type": "prometheus",
+            "url": "http://prometheus-k8s.{{ .Release.Namespace }}.svc:9090",
+            "version": 1
+        }
+    ]
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: {{ .Release.Namespace }}
+data:
+  dashboards.yaml: |
+    {
+        "apiVersion": 1,
+        "providers": [
+            {
+                "folder": "",
+                "name": "0",
+                "options": {
+                    "path": "/grafana-dashboard-definitions/0"
+                },
+                "orgId": 1,
+                "type": "file"
+            }
+        ]
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - image: "grafana/grafana:6.6.0"
+        name: grafana
+        ports:
+        - containerPort: 3000
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+        resources:
+          limits:
+            cpu: 200m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana-storage
+          readOnly: false
+        - mountPath: /etc/grafana/provisioning/datasources
+          name: grafana-datasources
+          readOnly: false
+        - mountPath: /etc/grafana/provisioning/dashboards
+          name: grafana-dashboards
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/apiserver
+          name: grafana-dashboard-apiserver
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/cluster-total
+          name: grafana-dashboard-cluster-total
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/controller-manager
+          name: grafana-dashboard-controller-manager
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/k8s-resources-cluster
+          name: grafana-dashboard-k8s-resources-cluster
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/k8s-resources-namespace
+          name: grafana-dashboard-k8s-resources-namespace
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/k8s-resources-node
+          name: grafana-dashboard-k8s-resources-node
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/k8s-resources-pod
+          name: grafana-dashboard-k8s-resources-pod
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/k8s-resources-workload
+          name: grafana-dashboard-k8s-resources-workload
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/k8s-resources-workloads-namespace
+          name: grafana-dashboard-k8s-resources-workloads-namespace
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/kubelet
+          name: grafana-dashboard-kubelet
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/namespace-by-pod
+          name: grafana-dashboard-namespace-by-pod
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/namespace-by-workload
+          name: grafana-dashboard-namespace-by-workload
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/node-cluster-rsrc-use
+          name: grafana-dashboard-node-cluster-rsrc-use
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/node-rsrc-use
+          name: grafana-dashboard-node-rsrc-use
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/nodes
+          name: grafana-dashboard-nodes
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/persistentvolumesusage
+          name: grafana-dashboard-persistentvolumesusage
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/pod-total
+          name: grafana-dashboard-pod-total
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/pods
+          name: grafana-dashboard-pods
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/prometheus-remote-write
+          name: grafana-dashboard-prometheus-remote-write
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/prometheus
+          name: grafana-dashboard-prometheus
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/proxy
+          name: grafana-dashboard-proxy
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/scheduler
+          name: grafana-dashboard-scheduler
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/statefulset
+          name: grafana-dashboard-statefulset
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/workload-total
+          name: grafana-dashboard-workload-total
+          readOnly: false
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: grafana
+      volumes:
+      - emptyDir: {}
+        name: grafana-storage
+      - configMap:
+          name: grafana-datasources
+        name: grafana-datasources
+      - configMap:
+          name: grafana-dashboards
+        name: grafana-dashboards
+      - configMap:
+          name: grafana-dashboard-apiserver
+        name: grafana-dashboard-apiserver
+      - configMap:
+          name: grafana-dashboard-cluster-total
+        name: grafana-dashboard-cluster-total
+      - configMap:
+          name: grafana-dashboard-controller-manager
+        name: grafana-dashboard-controller-manager
+      - configMap:
+          name: grafana-dashboard-k8s-resources-cluster
+        name: grafana-dashboard-k8s-resources-cluster
+      - configMap:
+          name: grafana-dashboard-k8s-resources-namespace
+        name: grafana-dashboard-k8s-resources-namespace
+      - configMap:
+          name: grafana-dashboard-k8s-resources-node
+        name: grafana-dashboard-k8s-resources-node
+      - configMap:
+          name: grafana-dashboard-k8s-resources-pod
+        name: grafana-dashboard-k8s-resources-pod
+      - configMap:
+          name: grafana-dashboard-k8s-resources-workload
+        name: grafana-dashboard-k8s-resources-workload
+      - configMap:
+          name: grafana-dashboard-k8s-resources-workloads-namespace
+        name: grafana-dashboard-k8s-resources-workloads-namespace
+      - configMap:
+          name: grafana-dashboard-kubelet
+        name: grafana-dashboard-kubelet
+      - configMap:
+          name: grafana-dashboard-namespace-by-pod
+        name: grafana-dashboard-namespace-by-pod
+      - configMap:
+          name: grafana-dashboard-namespace-by-workload
+        name: grafana-dashboard-namespace-by-workload
+      - configMap:
+          name: grafana-dashboard-node-cluster-rsrc-use
+        name: grafana-dashboard-node-cluster-rsrc-use
+      - configMap:
+          name: grafana-dashboard-node-rsrc-use
+        name: grafana-dashboard-node-rsrc-use
+      - configMap:
+          name: grafana-dashboard-nodes
+        name: grafana-dashboard-nodes
+      - configMap:
+          name: grafana-dashboard-persistentvolumesusage
+        name: grafana-dashboard-persistentvolumesusage
+      - configMap:
+          name: grafana-dashboard-pod-total
+        name: grafana-dashboard-pod-total
+      - configMap:
+          name: grafana-dashboard-pods
+        name: grafana-dashboard-pods
+      - configMap:
+          name: grafana-dashboard-prometheus-remote-write
+        name: grafana-dashboard-prometheus-remote-write
+      - configMap:
+          name: grafana-dashboard-prometheus
+        name: grafana-dashboard-prometheus
+      - configMap:
+          name: grafana-dashboard-proxy
+        name: grafana-dashboard-proxy
+      - configMap:
+          name: grafana-dashboard-scheduler
+        name: grafana-dashboard-scheduler
+      - configMap:
+          name: grafana-dashboard-statefulset
+        name: grafana-dashboard-statefulset
+      - configMap:
+          name: grafana-dashboard-workload-total
+        name: grafana-dashboard-workload-total
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - name: http
+    port: 3000
+    targetPort: http
+  selector:
+    app: grafana
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: grafana
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grafana
+  namespace: {{ .Release.Namespace }}
+spec:
+  endpoints:
+  - interval: 15s
+    port: http
+  selector:
+    matchLabels:
+      app: grafana
